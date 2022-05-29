@@ -78,10 +78,6 @@ function playRound(e, computerSelection) {
 
 }
 
-function whoWins() {
-    
-}
-
 let refreshButton = document.getElementById('again')
 refreshButton.addEventListener('click', reloadPage);
 
