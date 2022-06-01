@@ -11,11 +11,16 @@
         <div id="title">Etch a Sketch</div>
     </header>
     <main id="main">
-        <button id="reset">Reset</button>
+        <input id="color-selector" type="color" value="#000000" />
+        <div id="custom-grid-values">
+            <input id="custom-row" type="number" min='2' max="100" placeholder="Insert row number">
+            <input id="custom-col" type="number" min='2' max="100" placeholder="Insert column number">
+            <input id="submit" type="submit">
+        </div>
+        <button id="reset-btn">Reset</button>
         <table cellspacing="0" id="container">
         </table>
     </main>
-
 
     <script src="script.js"></script>
 </body>
