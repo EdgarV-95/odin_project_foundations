@@ -1,5 +1,12 @@
-td {
-    width: 25px;
-    height: 25px;
-    border: 0.1px solid black;
+#container {
+    margin: auto;
+    margin-top: 300px;
+    height: 50vh;
+    width: 50vh
 }
+
+.grid-item {
+    border: 1px solid #ddd;
+    min-width: 0;
+    min-height: 0;
+  }
