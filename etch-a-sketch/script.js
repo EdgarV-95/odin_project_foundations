@@ -60,3 +60,7 @@ function resetColor() {
 }
 
 createGrid(12);
+
+
+// Scenario: Eraser to clear out the column back to white
+// Scenario: Rainbow mode where the color changes randomly
