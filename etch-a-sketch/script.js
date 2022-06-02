@@ -14,46 +14,35 @@ function createGrid(gridSize) {
             let column = document.createElement('td');
             column.id = 'column' + j;
             column.classList = 'grid-item';
-
             column.addEventListener('mouseover', changeColor);
-            function changeColor() {
-                this.style.backgroundColor = currentColor;
-            };
             createColumn.appendChild(column);
         };
     };
 };
 
+function changeColor() {
+    this.style.backgroundColor = currentColor;
+};
+
 createGrid(12);
 
-
-document.getElementById('grid-size').addEventListener('click', func);
-function func() {
+// Change grid size
+document.getElementById('grid-size').addEventListener('click', changeGridSize);
+function changeGridSize() {
     let input = prompt('What grid size would you like?');
     createGrid(input);
 }
 
-// Selects all td elements and saves it in variable
-// let myNodeList = document.querySelectorAll('td');
-
-// // Change color from default
-// function changeColor(e) {
-//     Array.from(myNodeList).forEach(el => {
-//         if (e.target == el) {
-//             e.target.style.backgroundColor = currentColor;
-//         }
-//     })
-// }
-// document.addEventListener('mouseover', changeColor);
-
 // Change to various colors
 let currentColor = document.getElementById("color-selector").value;
-document.getElementById("color-selector").oninput = function() {
+document.getElementById("color-selector").oninput = selectColor;
+function selectColor() {
     currentColor = this.value;
 }
 
 // Reset colors
 function resetColor() {
+    let myNodeList = document.querySelectorAll('td');
     Array.from(myNodeList).forEach(el => {
             el.style.backgroundColor = 'white';
         })
