@@ -21,7 +21,10 @@ function createGrid(gridSize) {
             let column = document.createElement('td');
             column.id = 'column' + j;
             column.classList = 'grid-item';
-            column.addEventListener('mouseover', changeColor);
+            // Event listener that changes the color of every column it hovers over to the value of currentColor
+            column.addEventListener('mouseover', function() {
+                this.style.backgroundColor = currentColor;
+            });
             createColumn.appendChild(column);
         };
     };
@@ -34,7 +37,7 @@ function changeGridSize() {
     createGrid(input);
 }
 
-// Change to various colors
+// Change to different colors
 colorSelector.oninput = selectColor;
 function selectColor() {
     currentColor = this.value;
