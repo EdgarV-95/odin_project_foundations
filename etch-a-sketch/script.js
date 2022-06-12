@@ -4,6 +4,8 @@ let gridSize = document.getElementById('grid-size');
 let colorSelector = document.getElementById("color-selector");
 let boardReset = document.getElementById('reset-board');
 let colorReset = document.getElementById('reset-color');
+let eraser = document.getElementById('eraser');
+let rainbow = document.getElementById('rainbow');
 
 // Creates custom grid where the row and column sizes are definable
 function createGrid(gridSize) {
@@ -48,19 +50,21 @@ boardReset.addEventListener('click', resetBoard);
 function resetBoard() {
     let myNodeList = document.querySelectorAll('td');
     Array.from(myNodeList).forEach(el => {
-            el.style.backgroundColor = 'white';
+            el.style.backgroundColor = '#FFFFFF';
         })
 }
 
 // Reset color
 colorReset.addEventListener('click', resetColor);
 function resetColor() {
-    document.getElementById("color-selector").value = '#000000'
+    colorSelector.value = '#000000'
     currentColor = '#000000';
 }
 
-createGrid(12);
+// Eraser
+eraser.addEventListener('click', eraseColor);
+function eraseColor() {
+    currentColor = '#FFFFFF';
+}
 
-
-// Scenario: Eraser to clear out the column back to white
-// Scenario: Rainbow mode where the color changes randomly
+createGrid(2);
