@@ -5,7 +5,8 @@ let colorSelector = document.getElementById("color-selector");
 let boardReset = document.getElementById('reset-board');
 let colorReset = document.getElementById('reset-color');
 let eraser = document.getElementById('eraser');
-let rainbow = document.getElementById('rainbow');
+let colorMode = document.getElementById('color-mode');
+let rainbowMode = document.getElementById('rainbow-mode');
 
 // Creates custom grid where the row and column sizes are definable
 function createGrid(gridSize) {
@@ -40,7 +41,7 @@ function changeGridSize() {
 }
 
 // Change to different colors
-colorSelector.oninput = selectColor;
+colorSelector.addEventListener('input', selectColor)
 function selectColor() {
     currentColor = this.value;
 }
@@ -67,4 +68,9 @@ function eraseColor() {
     currentColor = '#FFFFFF';
 }
 
+// Continue using the previously selected color
+colorMode.addEventListener('click', selectCurrentColor)
+function selectCurrentColor() {
+    currentColor = colorSelector.value;
+}
 createGrid(2);
