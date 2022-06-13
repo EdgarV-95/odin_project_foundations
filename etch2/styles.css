@@ -1,0 +1,13 @@
+.board {
+    display: grid;
+    margin: auto;
+    margin-top: 20px;
+    height: 70vh;
+    width: 70vh
+}
+
+.grid-item {
+    border: 1px solid #ddd;
+    min-width: 0;
+    min-height: 0;
+}
