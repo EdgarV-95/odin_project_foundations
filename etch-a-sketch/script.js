@@ -43,9 +43,6 @@ function changeGridSize() {
 };
 
 // Change color function
-// if rainbow mode has been clicked use that
-// if it hasn't been clicked then use normal mode
-// Change color of cells
 function changeColor() {
     if(currentColor === 'rainbow-mode') {
         this.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
@@ -56,13 +53,13 @@ function changeColor() {
     }
 }
 
-// Change to different colors
+// Change the color to the color selector value
 colorSelector.addEventListener('input', selectColor)
 function selectColor() {
     currentColor = this.value;
 };
 
-// Click on rainbow mode to change the currentColor value to 'rainbow-mode' for the function above
+// Click on rainbow mode to change the currentColor value to 'rainbow-mode'. This for the changeColor function above
 rainbowMode.addEventListener('click', enableRainbowMode);
 function enableRainbowMode() {
     currentColor = 'rainbow-mode';
