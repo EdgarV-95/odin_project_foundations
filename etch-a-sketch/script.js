@@ -35,7 +35,11 @@ function createGrid(gridSize) {
 gridSize.addEventListener('click', changeGridSize);
 function changeGridSize() {
     let input = prompt('What grid size would you like?');
-    createGrid(input);
+    if (input == null) {
+        return;
+    } else {
+        createGrid(input);
+    }
 };
 
 // Change color function
