@@ -7,7 +7,6 @@ let colorReset = document.getElementById('reset-color');
 let eraser = document.getElementById('eraser');
 let colorMode = document.getElementById('color-mode');
 let rainbowMode = document.getElementById('rainbow-mode');
-let stopRainbowMode = document.getElementById('stop-rainbow-mode');
 
 // Creates custom grid where the row and column sizes are definable
 function createGrid(gridSize) {
@@ -53,7 +52,7 @@ function resetBoard() {
     let myNodeList = document.querySelectorAll('td');
     Array.from(myNodeList).forEach(el => {
             el.style.backgroundColor = '#FFFFFF';
-        })
+    })
 }
 
 // Reset color
@@ -92,18 +91,6 @@ function startFunction() {
         var g = num >> 8 & 255;
         var b = num & 255;
         return 'rgb(' + r + ',' + g + ',' + b + ')';
-    }
-}
-
-stopRainbowMode.removeEventListener('click', stopFunction)
-function stopFunction() {
-
-    let all = document.querySelectorAll('td');
-    for (let i = 0; i < all.length; i++) {
-        all[i].addEventListener('mouseover', testFunc);
-        function testFunc() {
-            currentColor = selectPreviousColor();
-        }
     }
 }
 
