@@ -25,9 +25,7 @@ function createGrid(gridSize) {
             column.id = 'column' + j;
             column.classList = 'grid-item';
             // Event listener that changes the color of every column it hovers over to the value of currentColor
-            column.addEventListener('mouseover', function() {
-                this.style.backgroundColor = currentColor;
-            });
+            column.addEventListener('mouseover', changeColor);
             createColumn.appendChild(column);
         };
     };
@@ -38,12 +36,32 @@ gridSize.addEventListener('click', changeGridSize);
 function changeGridSize() {
     let input = prompt('What grid size would you like?');
     createGrid(input);
+};
+
+// Change color function
+// if rainbow mode has been clicked use that
+// if it hasn't been clicked then use normal mode
+// Change color of cells
+function changeColor() {
+    if(currentColor === 'rainbow-mode') {
+        this.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
+    } else if(currentColor === 'eraser') {
+        this.style.backgroundColor = '#FFFFFF';
+    } else {
+        this.style.backgroundColor = currentColor;
+    }
 }
 
 // Change to different colors
 colorSelector.addEventListener('input', selectColor)
 function selectColor() {
     currentColor = this.value;
+};
+
+// Click on rainbow mode to change the currentColor value to 'rainbow-mode' for the function above
+rainbowMode.addEventListener('click', enableRainbowMode);
+function enableRainbowMode() {
+    currentColor = 'rainbow-mode';
 }
 
 // Reset board
@@ -53,45 +71,25 @@ function resetBoard() {
     Array.from(myNodeList).forEach(el => {
             el.style.backgroundColor = '#FFFFFF';
     })
-}
+};
 
 // Reset color
 colorReset.addEventListener('click', resetColor);
 function resetColor() {
-    colorSelector.value = '#000000'
     currentColor = '#000000';
+    colorSelector.value = '#000000';
 }
 
 // Eraser
 eraser.addEventListener('click', eraseColor);
 function eraseColor() {
-    currentColor = '#FFFFFF';
+    currentColor = 'eraser';
 }
 
 // Continue using the previously selected color
 colorMode.addEventListener('click', selectPreviousColor)
 function selectPreviousColor() {
     currentColor = colorSelector.value;
-}
-
-// Rainbow mode
-rainbowMode.addEventListener('click', startFunction)
-function startFunction() {
-
-    let all = document.querySelectorAll('td');
-    for (let i = 0; i < all.length; i++) {
-        all[i].addEventListener('mouseover', testFunc);
-        function testFunc() {
-            currentColor = randomColor();
-        }
-    }
-    function randomColor() {
-        var num = Math.round(0xffffff * Math.random());
-        var r = num >> 16;
-        var g = num >> 8 & 255;
-        var b = num & 255;
-        return 'rgb(' + r + ',' + g + ',' + b + ')';
-    }
-}
+};
 
 createGrid(2);
