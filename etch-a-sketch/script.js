@@ -93,4 +93,4 @@ function selectPreviousColor() {
     currentColor = colorSelector.value;
 };
 
-createGrid(2);
+createGrid(32);
