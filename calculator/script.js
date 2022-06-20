@@ -17,7 +17,7 @@ const nine = document.getElementById('nine');
 // Operations
 const addition = document.getElementById('add');
 const subtraction = document.getElementById('substract');
-const multiplication = document.getElementById('mulitply');
+const multiplication = document.getElementById('multiply');
 const division = document.getElementById('divide');
 const equals = document.getElementById('equal');
 const clear = document.getElementById('clear');
@@ -36,12 +36,23 @@ const divide = (a, b) => a / b;
 
 // Create a new function that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
 const operate = (operator, a, b) => {
-    return operator(a,b);
+    if (operator === "+") {
+        return add(a,b);
+    };
+    if (operator === "-") {
+        return subtract(a,b);
+    };
+    if (operator === "*") {
+        return multiply(a,b);
+    };
+    if (operator === "/") {
+        return divide(a,b);
+    };
 };
 
 // Create the functions that populate the display when you click the number buttons
 // Store the ‘display value’ in a variable somewhere for use in the next step.
-let displayValue;
+let displayValue = 0;
 const populate = (e) => {
     displayCurrent.textContent = e.target.outerText;
     displayValue = +displayCurrent.textContent;
@@ -59,24 +70,34 @@ eight.addEventListener('click', populate);
 nine.addEventListener('click', populate);
 
 // Store the first number that is input into the calculator when a user presses an operator,
-// and also save which operation has been chosen 
-// and then operate() on them when the user presses the “=” key.
-function saveLast() {
-    let firstNumber = displayValue;
-    console.log(firstNumber);
-
+let firstNumber = 0;
+function saveFirstNumber() {
+    firstNumber = displayValue;
 }
 
-// function calculator() {
-//     let firstNumber = displayValue;
-//     console.log(firstNumber);
-//     let operator;
-// }
+// and also save which operation has been chosen
+let operator = '';
+function saveOperation(e) {
+    console.log(e);
+}
+// save the operation there as a string somehow
 
-addition.addEventListener('click', saveLast)
-subtraction.addEventListener('click', saveLast)
-multiplication.addEventListener('click', saveLast)
-division.addEventListener('click', saveLast)
+// and then operate() on them when the user presses the “=” key.
+function test() {
+    saveFirstNumber();
+    saveOperation();
+}
+
+function hehe() {
+    let secondNumber = displayValue;
+    console.log(operator);
+    console.log(firstNumber);
+    console.log(secondNumber);
+    // operate(operator, firstNumber, displayValue);
+}
+
+addition.addEventListener('click', test)
+equals.addEventListener('click', hehe);
 
 
 
