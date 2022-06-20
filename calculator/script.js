@@ -16,7 +16,7 @@ const nine = document.getElementById('nine');
 
 // Operations
 const addition = document.getElementById('add');
-const subtraction = document.getElementById('substract');
+const subtraction = document.getElementById('subtract');
 const multiplication = document.getElementById('multiply');
 const division = document.getElementById('divide');
 const equals = document.getElementById('equal');
@@ -42,10 +42,10 @@ const operate = (operator, a, b) => {
     if (operator === "-") {
         return subtract(a,b);
     };
-    if (operator === "*") {
+    if (operator === "x") {
         return multiply(a,b);
     };
-    if (operator === "/") {
+    if (operator === "÷") {
         return divide(a,b);
     };
 };
@@ -78,26 +78,21 @@ function saveFirstNumber() {
 // and also save which operation has been chosen
 let operator = '';
 function saveOperation(e) {
-    console.log(e);
+    operator = e.target.innerText;
+    saveFirstNumber();
 }
-// save the operation there as a string somehow
 
 // and then operate() on them when the user presses the “=” key.
-function test() {
-    saveFirstNumber();
-    saveOperation();
-}
-
-function hehe() {
+function calculate() {
     let secondNumber = displayValue;
-    console.log(operator);
-    console.log(firstNumber);
-    console.log(secondNumber);
-    // operate(operator, firstNumber, displayValue);
+    return displayCurrent.textContent = operate(operator, firstNumber, secondNumber);
 }
 
-addition.addEventListener('click', test)
-equals.addEventListener('click', hehe);
+addition.addEventListener('click', saveOperation);
+subtraction.addEventListener('click', saveOperation);
+multiplication.addEventListener('click', saveOperation);
+division.addEventListener('click', saveOperation);
+equals.addEventListener('click', calculate);
 
 
 
