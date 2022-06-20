@@ -52,11 +52,15 @@ const operate = (operator, a, b) => {
 
 // Create the functions that populate the display when you click the number buttons
 // Store the ‘display value’ in a variable somewhere for use in the next step.
-let displayValue = 0;
+let displayValue = '';
 const populate = (e) => {
-    displayCurrent.textContent = e.target.outerText;
-    displayValue = +displayCurrent.textContent;
+    // displayCurrent.textContent = e.target.outerText;
+    // displayValue = +displayCurrent.textContent;
+    displayValue += e.target.innerText;
+    console.log(displayValue);
 }
+// find a way to still have 0 on the display but that disappears when the user writes
+// find a way to 
 
 zero.addEventListener('click', populate);
 one.addEventListener('click', populate);
