@@ -1,6 +1,6 @@
 // Display fields
-const displayTotal = document.getElementById('display-total')
-const displayCurrent = document.getElementById('display-current')
+const displayTotal = document.getElementById('display-total');
+const displayCurrent = document.getElementById('display-current');
 
 // Digits
 const zero = document.getElementById('zero');
@@ -45,7 +45,7 @@ const operate = (operator, a, b) => {
     if (operator === "x") {
         return multiply(a,b);
     };
-    if (operator === "÷") {
+    if (operator === "/") {
         return divide(a,b);
     };
 };
@@ -54,13 +54,9 @@ const operate = (operator, a, b) => {
 // Store the ‘display value’ in a variable somewhere for use in the next step.
 let displayValue = '';
 const populate = (e) => {
-    // displayCurrent.textContent = e.target.outerText;
-    // displayValue = +displayCurrent.textContent;
+    displayCurrent.textContent += e.target.innerText;
     displayValue += e.target.innerText;
-    console.log(displayValue);
-}
-// find a way to still have 0 on the display but that disappears when the user writes
-// find a way to 
+};
 
 zero.addEventListener('click', populate);
 one.addEventListener('click', populate);
@@ -77,33 +73,34 @@ nine.addEventListener('click', populate);
 let firstNumber = 0;
 function saveFirstNumber() {
     firstNumber = displayValue;
-}
+};
 
 // and also save which operation has been chosen
 let operator = '';
-function saveOperation(e) {
-    operator = e.target.innerText;
+function processValueAndOperator(e) {
     saveFirstNumber();
-}
+    operator = e.target.innerText;
+    displayCurrent.textContent = '';
+    displayValue = 0;
+};
 
 // and then operate() on them when the user presses the “=” key.
-function calculate() {
-    let secondNumber = displayValue;
-    return displayCurrent.textContent = operate(operator, firstNumber, secondNumber);
-}
-
-addition.addEventListener('click', saveOperation);
-subtraction.addEventListener('click', saveOperation);
-multiplication.addEventListener('click', saveOperation);
-division.addEventListener('click', saveOperation);
-equals.addEventListener('click', calculate);
-
-
-
-
 // You should already have the code that can populate the display,
 // so once operate() has been called, update the display with the ‘solution’ to the operation.
+function calculate() {
+    let secondNumber = displayValue;
+    return displayCurrent.textContent = operate(operator, +firstNumber, +secondNumber);
+};
 
+addition.addEventListener('click', processValueAndOperator);
+subtraction.addEventListener('click', processValueAndOperator);
+multiplication.addEventListener('click', processValueAndOperator);
+division.addEventListener('click', processValueAndOperator);
+equals.addEventListener('click', calculate);
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
+
+
+
+// Find a way to only save the latest clicked operation
