@@ -52,28 +52,35 @@ const operate = (operator, a, b) => {
 
 // Create the functions that populate the display when you click the number buttons
 // Store the ‘display value’ in a variable somewhere for use in the next step.
-let displayValue = '';
+// If an operator has been already pressed then clear the display content so a new number can be entered
+// Show every added number on the display
+let storedValue = '';
 const populate = (e) => {
     displayCurrent.textContent += e.target.innerText;
-    displayValue += e.target.innerText;
+    storedValue += e.target.innerText;
 };
 
 // Store the first number that is input into the calculator when a user presses an operator
 let firstNumber = '';
 function saveFirstNumber() {
-    firstNumber = displayValue;
+    firstNumber = storedValue;
+    displayCurrent.textContent = firstNumber;
 };
 
-// Save which operation has been chosen
+// Saves the chosen operation inside 'operator'
+// Calls saveFirstNumber() to save the value of the number entered
+// Clear out displayCurrent so the next value won't concatinate
 let operator = '';
-function processValueAndOperator(e) {
+function saveFirstNumberAndOperator(e) {
     operator = e.target.innerText;
+    saveFirstNumber();
+    storedValue = '';
 };
 
 // Store the value of the second number
 let secondNumber = '';
 function saveSecondNumber() {
-    secondNumber = displayValue;
+    secondNumber = storedValue;
 }
 
 // and then operate() on them when the user presses the “=” key.
@@ -83,22 +90,13 @@ let result = '';
 function calculateFirst() {
     saveSecondNumber();
     result = operate(operator, +firstNumber, +secondNumber);
+    displayCurrent.textContent = `${firstNumber} + ${secondNumber}`;
     displayTotal.innerText = result;
 };
 
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
-
-function resetValues() {
-    firstNumber = result;
-    secondNumber = '';
-    operator = '';
-    displayCurrent.textContent = '';
-    displayValue = '';
-};
-
-// Find a way to only save the latest clicked operation
 
 // Digit button event listeners
 zero.addEventListener('click', populate);
@@ -113,10 +111,10 @@ eight.addEventListener('click', populate);
 nine.addEventListener('click', populate);
 
 // Operation button event listeners
-addition.addEventListener('click', processValueAndOperator);
-subtraction.addEventListener('click', processValueAndOperator);
-multiplication.addEventListener('click', processValueAndOperator);
-division.addEventListener('click', processValueAndOperator);
+addition.addEventListener('click', saveFirstNumberAndOperator);
+subtraction.addEventListener('click', saveFirstNumberAndOperator);
+multiplication.addEventListener('click', saveFirstNumberAndOperator);
+division.addEventListener('click', saveFirstNumberAndOperator);
 equals.addEventListener('click', calculateFirst);
 
 clear.addEventListener('click', test);
@@ -125,5 +123,5 @@ function test() {
     console.log(operator);
     console.log(secondNumber);
     console.log(result);
-    console.log('displayValue: ' + displayValue);
+    console.log('storedValue: ' + storedValue);
 }
