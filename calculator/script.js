@@ -81,26 +81,51 @@ function processValueAndOperator(e) {
     saveFirstNumber();
     operator = e.target.innerText;
     displayCurrent.textContent = '';
-    displayValue = 0;
+    displayValue = '';
 };
+
+let secondNumber = '';
+function saveSecondNumber() {
+    secondNumber = displayValue;
+}
 
 // and then operate() on them when the user presses the “=” key.
 // You should already have the code that can populate the display,
 // so once operate() has been called, update the display with the ‘solution’ to the operation.
-function calculate() {
-    let secondNumber = displayValue;
-    return displayCurrent.textContent = operate(operator, +firstNumber, +secondNumber);
+let result = '';
+function calculateFirst() {
+    saveSecondNumber();
+    result = operate(operator, +firstNumber, +secondNumber);
+    displayTotal.innerText = result;
+    resetValues();
 };
 
 addition.addEventListener('click', processValueAndOperator);
 subtraction.addEventListener('click', processValueAndOperator);
 multiplication.addEventListener('click', processValueAndOperator);
 division.addEventListener('click', processValueAndOperator);
-equals.addEventListener('click', calculate);
+equals.addEventListener('click', calculateFirst);
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
 
+function resetValues() {
+    firstNumber = result;
+    secondNumber = '';
+    operator = '';
+    displayCurrent.textContent = '';
+    displayValue = '';
+};
+
+
+clear.addEventListener('click', test);
+function test() {
+    console.log(firstNumber);
+    console.log(operator);
+    console.log(secondNumber);
+    console.log(result);
+    console.log('displayValue: ' + displayValue);
+}
 
 
 // Find a way to only save the latest clicked operation
