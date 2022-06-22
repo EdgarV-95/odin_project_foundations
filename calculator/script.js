@@ -58,32 +58,19 @@ const populate = (e) => {
     displayValue += e.target.innerText;
 };
 
-zero.addEventListener('click', populate);
-one.addEventListener('click', populate);
-two.addEventListener('click', populate);
-three.addEventListener('click', populate);
-four.addEventListener('click', populate);
-five.addEventListener('click', populate);
-six.addEventListener('click', populate);
-seven.addEventListener('click', populate);
-eight.addEventListener('click', populate);
-nine.addEventListener('click', populate);
-
-// Store the first number that is input into the calculator when a user presses an operator,
-let firstNumber = 0;
+// Store the first number that is input into the calculator when a user presses an operator
+let firstNumber = '';
 function saveFirstNumber() {
     firstNumber = displayValue;
 };
 
-// and also save which operation has been chosen
+// Save which operation has been chosen
 let operator = '';
 function processValueAndOperator(e) {
-    saveFirstNumber();
     operator = e.target.innerText;
-    displayCurrent.textContent = '';
-    displayValue = '';
 };
 
+// Store the value of the second number
 let secondNumber = '';
 function saveSecondNumber() {
     secondNumber = displayValue;
@@ -97,14 +84,8 @@ function calculateFirst() {
     saveSecondNumber();
     result = operate(operator, +firstNumber, +secondNumber);
     displayTotal.innerText = result;
-    resetValues();
 };
 
-addition.addEventListener('click', processValueAndOperator);
-subtraction.addEventListener('click', processValueAndOperator);
-multiplication.addEventListener('click', processValueAndOperator);
-division.addEventListener('click', processValueAndOperator);
-equals.addEventListener('click', calculateFirst);
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
@@ -117,6 +98,26 @@ function resetValues() {
     displayValue = '';
 };
 
+// Find a way to only save the latest clicked operation
+
+// Digit button event listeners
+zero.addEventListener('click', populate);
+one.addEventListener('click', populate);
+two.addEventListener('click', populate);
+three.addEventListener('click', populate);
+four.addEventListener('click', populate);
+five.addEventListener('click', populate);
+six.addEventListener('click', populate);
+seven.addEventListener('click', populate);
+eight.addEventListener('click', populate);
+nine.addEventListener('click', populate);
+
+// Operation button event listeners
+addition.addEventListener('click', processValueAndOperator);
+subtraction.addEventListener('click', processValueAndOperator);
+multiplication.addEventListener('click', processValueAndOperator);
+division.addEventListener('click', processValueAndOperator);
+equals.addEventListener('click', calculateFirst);
 
 clear.addEventListener('click', test);
 function test() {
@@ -126,6 +127,3 @@ function test() {
     console.log(result);
     console.log('displayValue: ' + displayValue);
 }
-
-
-// Find a way to only save the latest clicked operation
