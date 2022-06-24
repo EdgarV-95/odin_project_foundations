@@ -54,8 +54,11 @@ const operate = (operator, a, b) => {
 // Store the ‘display value’ in a variable somewhere for use in the next step.
 // If an operator has been already pressed then clear the display content so a new number can be entered
 // Show every added number on the display
-let storedValue = '';
+let storedValue = '0';
 const populate = (e) => {
+    if (storedValue === '') {
+        displayCurrent.textContent = ''; 
+    }
     displayCurrent.textContent += e.target.innerText;
     storedValue += e.target.innerText;
 };
@@ -63,8 +66,8 @@ const populate = (e) => {
 // Store the first number that is input into the calculator when a user presses an operator
 let firstNumber = '';
 function saveFirstNumber() {
-    firstNumber = storedValue;
     displayCurrent.textContent = firstNumber;
+    firstNumber = storedValue;
 };
 
 // Saves the chosen operation inside 'operator'
@@ -72,8 +75,8 @@ function saveFirstNumber() {
 // Clear out displayCurrent so the next value won't concatinate
 let operator = '';
 function saveFirstNumberAndOperator(e) {
-    operator = e.target.innerText;
     saveFirstNumber();
+    operator = e.target.innerText;
     storedValue = '';
 };
 
@@ -81,7 +84,7 @@ function saveFirstNumberAndOperator(e) {
 let secondNumber = '';
 function saveSecondNumber() {
     secondNumber = storedValue;
-}
+};
 
 // and then operate() on them when the user presses the “=” key.
 // You should already have the code that can populate the display,
@@ -90,9 +93,13 @@ let result = '';
 function calculateFirst() {
     saveSecondNumber();
     result = operate(operator, +firstNumber, +secondNumber);
-    displayCurrent.textContent = `${firstNumber} + ${secondNumber}`;
+    displayCurrent.textContent = `${firstNumber.slice(1)} ${operator} ${secondNumber}`;
     displayTotal.innerText = result;
 };
+
+function anotherCalc() {
+    
+}
 
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
