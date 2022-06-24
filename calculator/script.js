@@ -92,6 +92,10 @@ function saveFirstNumberAndOperator(e) {
         displayCurrent.textContent = `${firstNumber} ${operator} `;
         displayTotal.textContent = '';
     };
+    if (newResult.length > 0) {
+        console.log(newResult);
+        nextCalculation();
+    }
 
 };
 
@@ -105,28 +109,33 @@ function saveSecondNumber() {
 // You should already have the code that can populate the display,
 // so once operate() has been called, update the display with the ‘solution’ to the operation.
 let result = '';
-function calculateFirst() {
+function firstCalculation() {
     saveSecondNumber();
     result = operate(operator, +firstNumber, +secondNumber);
     displayCurrent.textContent = `${firstNumber} ${operator} ${secondNumber}`;
     displayTotal.textContent = result;
 };
 
+let newResult = '';
+function nextCalculation() {
+    displayCurrent.textContent = result;
+    displayTotal.textContent = '';
+    firstNumber = result;
+    saveSecondNumber();
+    newResult = operate(operator, +firstNumber, +secondNumber);
+};
+
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
 
-function nextCalc() {
+function calculate() {
     if (result.length == 0) {
-        calculateFirst() 
+        firstCalculation(); 
     } else {
-        displayCurrent.textContent = result;
-        displayTotal.textContent = '';
-        firstNumber = result;
-        saveSecondNumber();
-        newResult = operate(operator, +firstNumber, +secondNumber);
-    }
-}
+        nextCalculation();
+    };
+};
 
 // find a way to give result when pressing operations not just equals
 
@@ -147,7 +156,7 @@ addition.addEventListener('click', saveFirstNumberAndOperator);
 subtraction.addEventListener('click', saveFirstNumberAndOperator);
 multiplication.addEventListener('click', saveFirstNumberAndOperator);
 division.addEventListener('click', saveFirstNumberAndOperator);
-equals.addEventListener('click', nextCalc);
+equals.addEventListener('click', calculate);
 
 clear.addEventListener('click', test);
 function test() {
@@ -155,5 +164,5 @@ function test() {
     console.log(`operator: ${operator}`);
     console.log(`second number: ${secondNumber}`);
     console.log(`result: ${result}`);
-    console.log('storedValue: ' + storedValue);
-}
+    console.log(`storedValue: ${storedValue}`);
+};
