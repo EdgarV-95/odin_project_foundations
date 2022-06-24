@@ -54,20 +54,24 @@ const operate = (operator, a, b) => {
 // Store the ‘display value’ in a variable somewhere for use in the next step.
 // If an operator has been already pressed then clear the display content so a new number can be entered
 // Show every added number on the display
-let storedValue = '0';
+let storedValue = [];
 const populate = (e) => {
-    if (storedValue === '') {
-        displayCurrent.textContent = ''; 
+    if (result !== 'used') {
+        displayCurrent.textContent += e.target.innerText;
+        storedValue.push(e.target.innerText);
+    } else {
+        displayCurrent.textContent += e.target.innerText;
+        result = '';
+        storedValue.push(e.target.innerText);
     }
-    displayCurrent.textContent += e.target.innerText;
-    storedValue += e.target.innerText;
+
 };
 
 // Store the first number that is input into the calculator when a user presses an operator
 let firstNumber = '';
 function saveFirstNumber() {
     displayCurrent.textContent = firstNumber;
-    firstNumber = storedValue;
+    firstNumber = storedValue.join('');
 };
 
 // Saves the chosen operation inside 'operator'
@@ -75,15 +79,26 @@ function saveFirstNumber() {
 // Clear out displayCurrent so the next value won't concatinate
 let operator = '';
 function saveFirstNumberAndOperator(e) {
-    saveFirstNumber();
-    operator = e.target.innerText;
-    storedValue = '';
+    if (firstNumber.length == 0) {
+        saveFirstNumber();
+        operator = e.target.innerText;
+        storedValue = [];
+        displayCurrent.textContent = `${firstNumber} ${operator} `
+    } else {
+        firstNumber = result;
+        operator = e.target.innerText;
+        storedValue = [];
+        result = 'used';
+        displayCurrent.textContent = `${firstNumber} ${operator} `;
+        displayTotal.textContent = '';
+    };
+
 };
 
 // Store the value of the second number
 let secondNumber = '';
 function saveSecondNumber() {
-    secondNumber = storedValue;
+    secondNumber = storedValue.join('');
 };
 
 // and then operate() on them when the user presses the “=” key.
@@ -93,17 +108,27 @@ let result = '';
 function calculateFirst() {
     saveSecondNumber();
     result = operate(operator, +firstNumber, +secondNumber);
-    displayCurrent.textContent = `${firstNumber.slice(1)} ${operator} ${secondNumber}`;
-    displayTotal.innerText = result;
+    displayCurrent.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+    displayTotal.textContent = result;
 };
-
-function anotherCalc() {
-
-}
 
 // This is the hardest part of the project. 
 // You need to figure out how to store all the values and call the operate function with them.
 // Don’t feel bad if it takes you a while to figure out the logic.
+
+function nextCalc() {
+    if (result.length == 0) {
+        calculateFirst() 
+    } else {
+        displayCurrent.textContent = result;
+        displayTotal.textContent = '';
+        firstNumber = result;
+        saveSecondNumber();
+        newResult = operate(operator, +firstNumber, +secondNumber);
+    }
+}
+
+// find a way to give result when pressing operations not just equals
 
 // Digit button event listeners
 zero.addEventListener('click', populate);
@@ -122,13 +147,13 @@ addition.addEventListener('click', saveFirstNumberAndOperator);
 subtraction.addEventListener('click', saveFirstNumberAndOperator);
 multiplication.addEventListener('click', saveFirstNumberAndOperator);
 division.addEventListener('click', saveFirstNumberAndOperator);
-equals.addEventListener('click', calculateFirst);
+equals.addEventListener('click', nextCalc);
 
 clear.addEventListener('click', test);
 function test() {
-    console.log(firstNumber);
-    console.log(operator);
-    console.log(secondNumber);
-    console.log(result);
+    console.log(`first number: ${firstNumber}`);
+    console.log(`operator: ${operator}`);
+    console.log(`second number: ${secondNumber}`);
+    console.log(`result: ${result}`);
     console.log('storedValue: ' + storedValue);
 }
