@@ -98,7 +98,7 @@ function calculateFirst() {
 };
 
 function anotherCalc() {
-    test
+
 }
 
 // This is the hardest part of the project. 
