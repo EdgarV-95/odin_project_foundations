@@ -56,15 +56,14 @@ const operate = (operator, a, b) => {
 // Show every added number on the display
 let storedValue = [];
 const populate = (e) => {
-    if (result !== 'used') {
+    if (result == false) {
         displayCurrent.textContent += e.target.innerText;
         storedValue.push(e.target.innerText);
     } else {
         displayCurrent.textContent += e.target.innerText;
-        result = '';
         storedValue.push(e.target.innerText);
-    }
-
+        result = '';
+    };
 };
 
 // Store the first number that is input into the calculator when a user presses an operator
@@ -79,24 +78,31 @@ function saveFirstNumber() {
 // Clear out displayCurrent so the next value won't concatinate
 let operator = '';
 function saveFirstNumberAndOperator(e) {
+    if (operator.length > 0 && storedValue.length > 0) {
+        console.log('we are here');
+        console.log(`${firstNumber}`);
+        console.log(`${operator}`);
+        console.log(`${storedValue[0]}`);
+        operator = e.target.innerText;
+        newResult = operate(operator, +firstNumber, +storedValue[0]);
+        displayCurrent.textContent = `${newResult} ${operator} `;
+        return;
+
+    };
     if (firstNumber.length == 0) {
         saveFirstNumber();
         operator = e.target.innerText;
         storedValue = [];
-        displayCurrent.textContent = `${firstNumber} ${operator} `
+        displayCurrent.textContent = `${firstNumber} ${operator} `;
     } else {
         firstNumber = result;
         operator = e.target.innerText;
         storedValue = [];
-        result = 'used';
+        result = true;
         displayCurrent.textContent = `${firstNumber} ${operator} `;
+        console.log('test')
         displayTotal.textContent = '';
     };
-    if (newResult.length > 0) {
-        console.log(newResult);
-        nextCalculation();
-    }
-
 };
 
 // Store the value of the second number
