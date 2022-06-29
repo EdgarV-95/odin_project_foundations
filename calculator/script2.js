@@ -55,7 +55,7 @@ const operate = (operator, a, b) => {
 
 let storedValue = '';
 const populate = (e) => {
-    if (operator.length > 0) {
+    if (operator.length > 0 && storedValue === '') {
         displayCurrent.textContent = '';
     }
     displayCurrent.textContent += e.target.textContent;
@@ -69,22 +69,29 @@ const populate = (e) => {
 let firstNumber = '';
 let operator = '';
 const saveNumberAndOperator = (e) => {
-    displayCurrent.textContent += e.target.textContent;
-    operator += e.target.textContent;
-    // Only saves the last inserted operator in case the user miss clicks
-    operator = operator.slice(-1);
-    firstNumber = storedValue;
-    displayTotal.textContent += `${firstNumber} ${operator} `;
-    displayCurrent.textContent = `${firstNumber}`;
-    storedValue = '';
+    if (result.length === undefined) {
+        firstNumber = result;
+        operator = '';
+        storedValue = '';
+        operator = e.target.textContent;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+    } else {
+        operator = e.target.textContent;
+        firstNumber = storedValue;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+    };
 };
 
 let result = '';
 let calculate = () => {
-    let result = operate(operator, +firstNumber, +storedValue);
+    result = operate(operator, +firstNumber, +storedValue);
     displayTotal.textContent = `${firstNumber} ${operator} ${storedValue}`;
-    displayCurrent.textContent = `${result}`
-}
+    displayCurrent.textContent = result;
+};
 
 
 // Digit button event listeners
@@ -109,5 +116,5 @@ division.addEventListener('click', saveNumberAndOperator);
 equals.addEventListener('click', calculate)
 
 clear.addEventListener('click', () => {
-    console.log(firstNumber, operator, storedValue);
+    console.log(`First number: ${firstNumber} | Operator: ${operator} | Second number/StoredValue: ${storedValue} | Result: ${result}`);
 });
