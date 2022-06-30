@@ -54,9 +54,21 @@ const operate = (operator, a, b) => {
 // Store the ‘display value’ in a variable somewhere for use in the next step.
 
 let storedValue = '';
+let testVar = true;
 const populate = (e) => {
+    // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
     if (operator.length > 0 && storedValue === '') {
         displayCurrent.textContent = '';
+    };
+
+    // This is for showing the result after the calculation has been done with an operand instead of the equals symbol.
+    if (result.length === undefined) {
+        displayCurrent.textContent = '';
+        storedValue = '';
+        displayTotal.textContent = `${result} ${operator}`;
+        result = '';
+        testVar = false;
+        // Something needs changing here
     }
     displayCurrent.textContent += e.target.textContent;
     storedValue += e.target.textContent;
@@ -69,7 +81,9 @@ const populate = (e) => {
 let firstNumber = '';
 let operator = '';
 const saveNumberAndOperator = (e) => {
+    // Happens when there already has been a calculation and result has a value
     if (result.length === undefined) {
+        console.log('1st func')
         firstNumber = result;
         operator = '';
         storedValue = '';
@@ -77,7 +91,21 @@ const saveNumberAndOperator = (e) => {
         displayTotal.textContent = `${firstNumber} ${operator} `;
         displayCurrent.textContent = `${firstNumber}`;
         storedValue = '';
+
+    // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in populate() to make it work
+    } else if (firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) {
+        console.log('2nd func');
+        calculate();
+        firstNumber = result;
+
+    // Happens when an operand is used to calculate a result for 2nd or multiple times.
+    } else if (testVar === false) {
+        console.log('3rd func');
+        calculate();
+
+    // Default
     } else {
+        console.log('4th func');
         operator = e.target.textContent;
         firstNumber = storedValue;
         displayTotal.textContent = `${firstNumber} ${operator} `;
@@ -113,7 +141,7 @@ multiplication.addEventListener('click', saveNumberAndOperator);
 division.addEventListener('click', saveNumberAndOperator);
 
 // Equals
-equals.addEventListener('click', calculate)
+equals.addEventListener('click', calculate);
 
 clear.addEventListener('click', () => {
     console.log(`First number: ${firstNumber} | Operator: ${operator} | Second number/StoredValue: ${storedValue} | Result: ${result}`);
