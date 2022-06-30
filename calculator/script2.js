@@ -21,6 +21,8 @@ const multiplication = document.getElementById('multiply');
 const division = document.getElementById('divide');
 const equals = document.getElementById('equal');
 const clear = document.getElementById('clear');
+const dot = document.getElementById('dot');
+const removeLast = document.getElementById('delete');
 
 // Add
 const add = (a, b) => a + b;
@@ -59,7 +61,7 @@ const populate = (e) => {
     // Handle divide by 0;
     if (displayCurrent.textContent === 'Cannot divide by 0') {
         clearCalc();
-    }
+    };
 
     // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
     if (operator.length > 0 && storedValue === '') {
@@ -147,6 +149,13 @@ const clearCalc = () => {
     displayTotal.textContent = '';
 };
 
+// Remove last
+const backspace = () => {
+    displayCurrent.textContent = displayCurrent.textContent.slice(0, -1);
+    storedValue = storedValue.slice(0, -1);
+}
+
+
 // Digit button event listeners
 zero.addEventListener('click', populate);
 one.addEventListener('click', populate);
@@ -164,6 +173,7 @@ addition.addEventListener('click', saveNumberAndOperator);
 subtraction.addEventListener('click', saveNumberAndOperator);
 multiplication.addEventListener('click', saveNumberAndOperator);
 division.addEventListener('click', saveNumberAndOperator);
+removeLast.addEventListener('click', backspace);
 
 // Equals
 equals.addEventListener('click', calculate);
