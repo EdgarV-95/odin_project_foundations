@@ -54,8 +54,13 @@ const operate = (operator, a, b) => {
 // Store the ‘display value’ in a variable somewhere for use in the next step.
 
 let storedValue = '';
-let testVar = true;
+let toggleOption = true;
 const populate = (e) => {
+    // Handle divide by 0;
+    if (displayCurrent.textContent === 'Cannot divide by 0') {
+        clearCalc();
+    }
+
     // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
     if (operator.length > 0 && storedValue === '') {
         displayCurrent.textContent = '';
@@ -67,8 +72,7 @@ const populate = (e) => {
         storedValue = '';
         displayTotal.textContent = `${result} ${operator}`;
         result = '';
-        testVar = false;
-        // Something needs changing here
+        toggleOption = false;
     }
     displayCurrent.textContent += e.target.textContent;
     storedValue += e.target.textContent;
@@ -93,8 +97,8 @@ const saveNumberAndOperator = (e) => {
         storedValue = '';
 
     // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in populate() to make it work
-    // If testVar === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
-    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || testVar === false) {
+    // If toggleOption === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
+    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || toggleOption === false) {
         console.log('2nd func');
         calculate();
         operator = e.target.textContent;
@@ -113,11 +117,35 @@ const saveNumberAndOperator = (e) => {
 
 let result = '';
 let calculate = () => {
-    result = operate(operator, +firstNumber, +storedValue);
-    displayTotal.textContent = `${firstNumber} ${operator} ${storedValue}`;
-    displayCurrent.textContent = result;
+    // Handle divide by 0
+    if (operator === '/' && storedValue === '0') {
+        displayCurrent.textContent = 'Cannot divide by 0';
+        return;
+    } else {
+        // Handles the scenario when '=' is pressed first 
+        if (firstNumber === '' && storedValue === '') {
+            return;
+        };
+
+        result = operate(operator, +firstNumber, +storedValue);
+
+        // Rounds answers with long decimals
+        result = parseFloat(result.toFixed(2));
+
+        displayTotal.textContent = `${firstNumber} ${operator} ${storedValue}`;
+        displayCurrent.textContent = result;
+    };
 };
 
+// Clear everything
+const clearCalc = () => {
+    storedValue = '';
+    firstNumber = '';
+    result = '';
+    toggleOption = true;
+    displayCurrent.textContent = '';
+    displayTotal.textContent = '';
+};
 
 // Digit button event listeners
 zero.addEventListener('click', populate);
@@ -140,6 +168,10 @@ division.addEventListener('click', saveNumberAndOperator);
 // Equals
 equals.addEventListener('click', calculate);
 
-clear.addEventListener('click', () => {
+// Clear
+clear.addEventListener('click', clearCalc);
+
+// Just for testing
+document.getElementById('print').addEventListener('click', () => {
     console.log(`First number: ${firstNumber} | Operator: ${operator} | Second number/StoredValue: ${storedValue} | Result: ${result}`);
 });
