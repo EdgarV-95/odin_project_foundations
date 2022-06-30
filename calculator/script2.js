@@ -75,7 +75,8 @@ const populate = (e) => {
         displayTotal.textContent = `${result} ${operator}`;
         result = '';
         toggleOption = false;
-    }
+    };
+
     displayCurrent.textContent += e.target.textContent;
     storedValue += e.target.textContent;
 };
@@ -139,6 +140,13 @@ let calculate = () => {
     };
 };
 
+// Add decimal button
+const addDecimal = () => {
+    if (displayCurrent.textContent.includes('.')) return;
+    displayCurrent.textContent += '.';
+    storedValue += '.';
+};
+
 // Clear everything
 const clearCalc = () => {
     storedValue = '';
@@ -153,10 +161,10 @@ const clearCalc = () => {
 const backspace = () => {
     displayCurrent.textContent = displayCurrent.textContent.slice(0, -1);
     storedValue = storedValue.slice(0, -1);
-}
+};
 
 
-// Digit button event listeners
+// Digit button event listeners for click
 zero.addEventListener('click', populate);
 one.addEventListener('click', populate);
 two.addEventListener('click', populate);
@@ -177,6 +185,9 @@ removeLast.addEventListener('click', backspace);
 
 // Equals
 equals.addEventListener('click', calculate);
+
+// Decimal
+dot.addEventListener('click', addDecimal)
 
 // Clear
 clear.addEventListener('click', clearCalc);
