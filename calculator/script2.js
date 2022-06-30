@@ -44,7 +44,7 @@ const operate = (operator, a, b) => {
     if (operator === "-") {
         return subtract(a, b);
     };
-    if (operator === "x") {
+    if (operator === "*") {
         return multiply(a, b);
     };
     if (operator === "/") {
@@ -196,3 +196,115 @@ clear.addEventListener('click', clearCalc);
 document.getElementById('print').addEventListener('click', () => {
     console.log(`First number: ${firstNumber} | Operator: ${operator} | Second number/StoredValue: ${storedValue} | Result: ${result}`);
 });
+
+// Keyboard support
+
+const keyBoardSupp= (e) => {
+    switch(e.key) {
+        case '0':
+            kbd_Populate(e.key);
+            break;
+        case '1':
+            kbd_Populate(e.key);
+            break; 
+        case '2':
+            kbd_Populate(e.key);
+            break;
+        case '3':
+            kbd_Populate(e.key);
+            break;
+        case '4':
+            kbd_Populate(e.key);
+            break;
+        case '5':
+            kbd_Populate(e.key);
+            break;
+        case '6':
+            kbd_Populate(e.key);
+            break;
+        case '7':
+            kbd_Populate(e.key);
+            break;
+        case '8':
+            kbd_Populate(e.key);
+            break;
+        case '9':
+            kbd_Populate(e.key);
+            break;  
+        case '+':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '-':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '*':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '/':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '=':
+            calculate();
+            break;
+        case 'Enter':
+            calculate();
+            break;
+    };
+};
+
+const kbd_Populate = (param1) => {
+    // Handle divide by 0;
+    if (displayCurrent.textContent === 'Cannot divide by 0') {
+        clearCalc();
+    };
+
+    // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
+    if (operator.length > 0 && storedValue === '') {
+        displayCurrent.textContent = '';
+    };
+
+    // This is for showing the result after the calculation has been done with an operand instead of the equals symbol.
+    if (result.length === undefined) {
+        displayCurrent.textContent = '';
+        storedValue = '';
+        displayTotal.textContent = `${result} ${operator}`;
+        result = '';
+        toggleOption = false;
+    };
+
+    displayCurrent.textContent += param1;
+    storedValue += param1;
+};
+
+const kbd_SaveNumberAndOperator = (param2) => {
+    // Happens when there already has been a calculation and result has a value
+    if (result.length === undefined) {
+        console.log('1st func')
+        firstNumber = result;
+        operator = '';
+        storedValue = '';
+        operator = param2;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+
+    // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in Populate() to make it work
+    // If toggleOption === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
+    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || toggleOption === false) {
+        console.log('2nd func');
+        kbd_Calculate();
+        operator = param2;
+        firstNumber = result;
+
+    // Default
+    } else {
+        console.log('4th func');
+        operator = param2;
+        firstNumber = storedValue;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+    };
+};
+
+window.addEventListener('keydown', keyBoardSupp);
