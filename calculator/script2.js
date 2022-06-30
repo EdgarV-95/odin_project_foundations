@@ -93,15 +93,12 @@ const saveNumberAndOperator = (e) => {
         storedValue = '';
 
     // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in populate() to make it work
-    } else if (firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) {
+    // If testVar === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
+    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || testVar === false) {
         console.log('2nd func');
         calculate();
+        operator = e.target.textContent;
         firstNumber = result;
-
-    // Happens when an operand is used to calculate a result for 2nd or multiple times.
-    } else if (testVar === false) {
-        console.log('3rd func');
-        calculate();
 
     // Default
     } else {
