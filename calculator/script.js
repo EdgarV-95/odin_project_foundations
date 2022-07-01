@@ -21,6 +21,8 @@ const multiplication = document.getElementById('multiply');
 const division = document.getElementById('divide');
 const equals = document.getElementById('equal');
 const clear = document.getElementById('clear');
+const dot = document.getElementById('dot');
+const removeLast = document.getElementById('delete');
 
 // Add
 const add = (a, b) => a + b;
@@ -37,115 +39,132 @@ const divide = (a, b) => a / b;
 // Create a new function that takes an operator and 2 numbers and then calls one of the above functions on the numbers.
 const operate = (operator, a, b) => {
     if (operator === "+") {
-        return add(a,b);
+        return add(a, b);
     };
     if (operator === "-") {
-        return subtract(a,b);
+        return subtract(a, b);
     };
-    if (operator === "x") {
-        return multiply(a,b);
+    if (operator === "*") {
+        return multiply(a, b);
     };
     if (operator === "/") {
-        return divide(a,b);
+        return divide(a, b);
     };
 };
 
 // Create the functions that populate the display when you click the number buttons
 // Store the ‘display value’ in a variable somewhere for use in the next step.
-// If an operator has been already pressed then clear the display content so a new number can be entered
-// Show every added number on the display
-let storedValue = [];
+
+let storedValue = '';
+let toggleOption = true;
 const populate = (e) => {
-    if (result == false) {
-        displayCurrent.textContent += e.target.innerText;
-        storedValue.push(e.target.innerText);
-    } else {
-        displayCurrent.textContent += e.target.innerText;
-        storedValue.push(e.target.innerText);
+    // Handle divide by 0;
+    if (displayCurrent.textContent === 'Cannot divide by 0') {
+        clearCalc();
+    };
+
+    // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
+    if (operator.length > 0 && storedValue === '') {
+        displayCurrent.textContent = '';
+    };
+
+    // This is for showing the result after the calculation has been done with an operand instead of the equals symbol.
+    if (result.length === undefined) {
+        displayCurrent.textContent = '';
+        storedValue = '';
+        displayTotal.textContent = `${result} ${operator}`;
         result = '';
+        toggleOption = false;
     };
+
+    displayCurrent.textContent += e.target.textContent;
+    storedValue += e.target.textContent;
 };
 
-// Store the first number that is input into the calculator when a user presses an operator
+// Make the calculator work! 
+// You’ll need to store the first number that is input into the calculator when a user presses an operator, and also save which operation has been chosen
+// And then operate() on them when the user presses the “=” key.
+
 let firstNumber = '';
-function saveFirstNumber() {
-    displayCurrent.textContent = firstNumber;
-    firstNumber = storedValue.join('');
-};
-
-// Saves the chosen operation inside 'operator'
-// Calls saveFirstNumber() to save the value of the number entered
-// Clear out displayCurrent so the next value won't concatinate
 let operator = '';
-function saveFirstNumberAndOperator(e) {
-    if (operator.length > 0 && storedValue.length > 0) {
-        console.log('we are here');
-        console.log(`${firstNumber}`);
-        console.log(`${operator}`);
-        console.log(`${storedValue[0]}`);
-        operator = e.target.innerText;
-        newResult = operate(operator, +firstNumber, +storedValue[0]);
-        displayCurrent.textContent = `${newResult} ${operator} `;
-        return;
-
-    };
-    if (firstNumber.length == 0) {
-        saveFirstNumber();
-        operator = e.target.innerText;
-        storedValue = [];
-        displayCurrent.textContent = `${firstNumber} ${operator} `;
-    } else {
+const saveNumberAndOperator = (e) => {
+    // Happens when there already has been a calculation and result has a value
+    if (result.length === undefined) {
+        console.log('1st func')
         firstNumber = result;
-        operator = e.target.innerText;
-        storedValue = [];
-        result = true;
-        displayCurrent.textContent = `${firstNumber} ${operator} `;
-        console.log('test')
-        displayTotal.textContent = '';
-    };
-};
+        operator = '';
+        storedValue = '';
+        operator = e.target.textContent;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
 
-// Store the value of the second number
-let secondNumber = '';
-function saveSecondNumber() {
-    secondNumber = storedValue.join('');
-};
+    // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in populate() to make it work
+    // If toggleOption === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
+    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || toggleOption === false) {
+        console.log('2nd func');
+        calculate();
+        operator = e.target.textContent;
+        firstNumber = result;
 
-// and then operate() on them when the user presses the “=” key.
-// You should already have the code that can populate the display,
-// so once operate() has been called, update the display with the ‘solution’ to the operation.
-let result = '';
-function firstCalculation() {
-    saveSecondNumber();
-    result = operate(operator, +firstNumber, +secondNumber);
-    displayCurrent.textContent = `${firstNumber} ${operator} ${secondNumber}`;
-    displayTotal.textContent = result;
-};
-
-let newResult = '';
-function nextCalculation() {
-    displayCurrent.textContent = result;
-    displayTotal.textContent = '';
-    firstNumber = result;
-    saveSecondNumber();
-    newResult = operate(operator, +firstNumber, +secondNumber);
-};
-
-// This is the hardest part of the project. 
-// You need to figure out how to store all the values and call the operate function with them.
-// Don’t feel bad if it takes you a while to figure out the logic.
-
-function calculate() {
-    if (result.length == 0) {
-        firstCalculation(); 
+    // Default
     } else {
-        nextCalculation();
+        console.log('4th func');
+        operator = e.target.textContent;
+        firstNumber = storedValue;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
     };
 };
 
-// find a way to give result when pressing operations not just equals
+let result = '';
+let calculate = () => {
+    // Handle divide by 0
+    if (operator === '/' && storedValue === '0') {
+        displayCurrent.textContent = 'Cannot divide by 0';
+        return;
+    } else {
+        // Handles the scenario when '=' is pressed first 
+        if (firstNumber === '' && storedValue === '') {
+            return;
+        };
 
-// Digit button event listeners
+        result = operate(operator, +firstNumber, +storedValue);
+
+        // Rounds answers with long decimals
+        result = parseFloat(result.toFixed(2));
+
+        displayTotal.textContent = `${firstNumber} ${operator} ${storedValue}`;
+        displayCurrent.textContent = result;
+    };
+};
+
+// Add decimal button
+const addDecimal = () => {
+    if (displayCurrent.textContent.includes('.')) return;
+    displayCurrent.textContent += '.';
+    storedValue += '.';
+};
+
+// Clear everything
+const clearCalc = () => {
+    storedValue = '';
+    firstNumber = '';
+    result = '';
+    toggleOption = true;
+    displayCurrent.textContent = '';
+    displayTotal.textContent = '';
+};
+
+// Remove last
+const backspace = () => {
+    displayCurrent.textContent = displayCurrent.textContent.slice(0, -1);
+    storedValue = storedValue.slice(0, -1);
+};
+
+
+// Digit button event listeners for click
 zero.addEventListener('click', populate);
 one.addEventListener('click', populate);
 two.addEventListener('click', populate);
@@ -158,17 +177,134 @@ eight.addEventListener('click', populate);
 nine.addEventListener('click', populate);
 
 // Operation button event listeners
-addition.addEventListener('click', saveFirstNumberAndOperator);
-subtraction.addEventListener('click', saveFirstNumberAndOperator);
-multiplication.addEventListener('click', saveFirstNumberAndOperator);
-division.addEventListener('click', saveFirstNumberAndOperator);
+addition.addEventListener('click', saveNumberAndOperator);
+subtraction.addEventListener('click', saveNumberAndOperator);
+multiplication.addEventListener('click', saveNumberAndOperator);
+division.addEventListener('click', saveNumberAndOperator);
+removeLast.addEventListener('click', backspace);
+
+// Equals
 equals.addEventListener('click', calculate);
 
-clear.addEventListener('click', test);
-function test() {
-    console.log(`first number: ${firstNumber}`);
-    console.log(`operator: ${operator}`);
-    console.log(`second number: ${secondNumber}`);
-    console.log(`result: ${result}`);
-    console.log(`storedValue: ${storedValue}`);
+// Decimal
+dot.addEventListener('click', addDecimal)
+
+// Clear
+clear.addEventListener('click', clearCalc);
+
+// Just for testing
+document.getElementById('print').addEventListener('click', () => {
+    console.log(`First number: ${firstNumber} | Operator: ${operator} | Second number/StoredValue: ${storedValue} | Result: ${result}`);
+});
+
+// Keyboard support
+
+const keyBoardSupp= (e) => {
+    switch(e.key) {
+        case '0':
+            kbd_Populate(e.key);
+            break;
+        case '1':
+            kbd_Populate(e.key);
+            break; 
+        case '2':
+            kbd_Populate(e.key);
+            break;
+        case '3':
+            kbd_Populate(e.key);
+            break;
+        case '4':
+            kbd_Populate(e.key);
+            break;
+        case '5':
+            kbd_Populate(e.key);
+            break;
+        case '6':
+            kbd_Populate(e.key);
+            break;
+        case '7':
+            kbd_Populate(e.key);
+            break;
+        case '8':
+            kbd_Populate(e.key);
+            break;
+        case '9':
+            kbd_Populate(e.key);
+            break;  
+        case '+':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '-':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '*':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '/':
+            kbd_SaveNumberAndOperator(e.key);
+            break; 
+        case '=':
+            calculate();
+            break;
+        case 'Enter':
+            calculate();
+            break;
+    };
 };
+
+const kbd_Populate = (param1) => {
+    // Handle divide by 0;
+    if (displayCurrent.textContent === 'Cannot divide by 0') {
+        clearCalc();
+    };
+
+    // This is for making sure the display starts from empty when an operand has been clicked and first number is saved
+    if (operator.length > 0 && storedValue === '') {
+        displayCurrent.textContent = '';
+    };
+
+    // This is for showing the result after the calculation has been done with an operand instead of the equals symbol.
+    if (result.length === undefined) {
+        displayCurrent.textContent = '';
+        storedValue = '';
+        displayTotal.textContent = `${result} ${operator}`;
+        result = '';
+        toggleOption = false;
+    };
+
+    displayCurrent.textContent += param1;
+    storedValue += param1;
+};
+
+const kbd_SaveNumberAndOperator = (param2) => {
+    // Happens when there already has been a calculation and result has a value
+    if (result.length === undefined) {
+        console.log('1st func')
+        firstNumber = result;
+        operator = '';
+        storedValue = '';
+        operator = param2;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+
+    // Happens when an operand is used to calculate a result for the first time. Note that this is also requires the 2nd if statement in Populate() to make it work
+    // If toggleOption === false then it means there has already been an operand calculation and this will ensure following ones will also be executed
+    } else if ((firstNumber.length > 0 && operator.length > 0 && storedValue.length > 0) || toggleOption === false) {
+        console.log('2nd func');
+        kbd_Calculate();
+        operator = param2;
+        firstNumber = result;
+
+    // Default
+    } else {
+        console.log('4th func');
+        operator = param2;
+        firstNumber = storedValue;
+        displayTotal.textContent = `${firstNumber} ${operator} `;
+        displayCurrent.textContent = `${firstNumber}`;
+        storedValue = '';
+    };
+};
+
+window.addEventListener('keydown', keyBoardSupp);
