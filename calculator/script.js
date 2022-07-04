@@ -179,12 +179,24 @@ operations.forEach(operation => {
 
 // Keyboard support
 const keyBoardSupp= (e) => {
-    if (e.key >= 0 && e.key <= 9) return populate('empty', e.key);
-    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') return saveNumberAndOperator('empty', e.key);
-    if (e.key === '=' || e.key === 'Enter') return calculate();
-    if (e.key === '.') return addDecimal();
-    if (e.key === 'Escape') return clearCalc();
-    if (e.key === 'Backspace') return backspace();
+    if (e.key >= 0 && e.key <= 9) {
+        return populate('empty', e.key);
+    };;
+    if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+        return saveNumberAndOperator('empty', e.key);
+    };
+    if (e.key === '=' || e.key === 'Enter') {
+        return calculate();
+    };
+    if (e.key === '.') {
+        return addDecimal();
+    };
+    if (e.key === 'Escape') {
+        return clearCalc();
+    };
+    if (e.key === 'Backspace') {
+        return backspace();
+    };
 };
 
 window.addEventListener('keydown', keyBoardSupp);
