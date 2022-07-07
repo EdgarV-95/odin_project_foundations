@@ -1,1 +1,159 @@
-/* test */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+
+.header-section {
+    background-color: #1F2937;
+}
+
+.header-navbar,
+.header-content  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 250px 0 200px;
+    padding-top: 35px;
+    padding-right: 200px;
+}
+
+.header-content {
+    padding-top: 30px;
+}
+
+.logo h1 {
+    color: #F9FAF8;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.header-link {
+    display: flex;
+    gap: 100px;
+}
+
+.link {
+    list-style-type: none;
+    color: #F9FAF8;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.header-text h1 {
+    color: #F9FAF8;
+    font-size: 48px;
+    font-weight: bolder;
+    white-space: pre-line;
+}
+
+.header-text p {
+    color: #E2E7EB;
+    font-size: 18px;
+    white-space: pre-line;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #3882F6;
+    color: #F9FAF8;
+    width: 85px;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.header-img {
+    margin-right: 150px;
+    width: 350px;
+    height: auto;
+}
+
+/* MAIN */
+
+.first-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.first-section h1 {
+    margin-bottom: 35px;
+    font-size: 36px;
+    font-weight: bolder;
+    color: #1F2937
+}
+
+.first-section-elements {
+    display: flex;
+    gap: 60px;
+    padding: 0 500px 0 500px;
+}
+
+.entry {
+    list-style-type: none;
+}
+
+.second-section {
+    background-color: #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    white-space: pre-line;
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+.quote {
+    font-size: 36px;
+    color: #1F2937;
+    font-style: italic;
+}
+
+.quote-author {
+    font-size: 20px;
+    color: #1F2937;
+    font-weight: bold;
+    margin-left: 400px;
+}
+
+.third-section {
+    padding-top: 70px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.third-section-wrap {
+    background-color: #3882F6;
+    width: 800px;
+    height: 120px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.third-section-a {
+    color: #F9FAF8;
+}
+
+.third-section-b button {
+    border-color: #F9FAF8;
+}
+
+/* FOOTER */
+
+.footer-section {
+    background-color: #1F2937;
+    color: #F9FAF8;
+    text-align: center;
+    padding: 20px;
+    font-weight: 100;
+}
