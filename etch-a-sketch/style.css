@@ -1,10 +1,43 @@
 #container {
-    height: 70vh;
-    width: 70vh
+    height: 60vh;
+    width: 60vh
 }
 
 .grid-item {
     border: 1px solid #ddd;
     min-width: 0;
     min-height: 0;
+}
+
+body {
+    background-color: rgb(173, 173, 173);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 80px;
+    font-size: 100px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+}
+
+button {
+    border-radius: 50px;
+    height: 40px;
+}
+
+table {
+    background-color: white;
 }
