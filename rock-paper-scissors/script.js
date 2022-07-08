@@ -14,23 +14,33 @@ let rock = document.getElementById('rock-btn');
 let paper = document.getElementById('paper-btn');
 let scissors = document.getElementById('scissors-btn');
 
-let result = document.getElementById('result');
-let runningScore = document.getElementById('running-score');
+let result = document.querySelector('main h3');
 let finalResult = document.getElementById('finalResult');
 
 // Plays a whole round of the game and console logs the winner. It also updates the global variables in case multiple rounds will be played.
 const playRound = (e) => {
     playerSelection = e.target.value;
     let computerSelection = computerPlay().toLowerCase();
-    runningScore.innerText = `Draw: ${draw} || Win: ${win} || Lose: ${lose}`;
+    document.querySelector('.draw-score h2').innerText = 'Draw: ' + draw;
+    document.querySelector('.player h2').innerText = 'Player score: ' + win;
+    document.querySelector('.computer h2').innerText = 'Computer score: ' + lose;
 
-    if (win == 5) {
+    if (win === 5) {
+        createButton();
+        playAgain();
+        disableEventListeners();
         return finalResult.innerText = `Congratulations you Won!`;
     };
-    if (lose == 5) {
+    if (lose === 5) {
+        createButton();
+        playAgain();
+        disableEventListeners();
         return finalResult.innerText = `Sorry, you Lost!`;
     };
-    if (draw == 5) {
+    if (draw === 5) {
+        createButton();
+        playAgain();
+        disableEventListeners();
         return finalResult.innerText = `It is a Draw!`;
     };
 
@@ -77,5 +87,23 @@ rock.addEventListener('click', playRound);
 paper.addEventListener('click', playRound);
 scissors.addEventListener('click', playRound);
 
+// Disable event listeners after game is over
+const disableEventListeners = () => {
+    rock.removeEventListener('click', playRound);
+    paper.removeEventListener('click', playRound);
+    scissors.removeEventListener('click', playRound);
+}
+
+// Create Play again button
+const createButton = () => {
+    const button = document.createElement('button');
+    button.className = 'play';
+    button.id = 'again';
+    button.innerText = 'Play again';
+    document.querySelector('.score-texts').insertAdjacentElement("beforeend", button);
+};
+
 // Play again
-document.getElementById('again').addEventListener('click', () => location.reload());
+const playAgain = () => {
+    document.getElementById('again').addEventListener('click', () => location.reload());
+};

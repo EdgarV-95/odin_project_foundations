@@ -8,13 +8,35 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <h1>Rock paper scissors</h1>
-    <div class="score" id="running-score"><h3></h3></div>
-    <button class="player-btn" id="rock-btn" value="rock">Rock</button>
-    <button class="player-btn" id="paper-btn" value="paper">Paper</button>
-    <button class="player-btn" id="scissors-btn" value="scissors">Scissors</button>
-    <div class="score" id="result"><h2></h2></div>
-    <div class="finalScore" id="finalResult"></div>
-    <button class="play" id="again">Play again</button>
+    <header>
+        <h1>Rock, Paper & Scissors</h1>
+        <h3>The rules are simple:</h3>
+        <h3>First to reach 5 points WINS!</h3>
+    </header>
+
+    <main>
+        <div class="player-vs-computer">
+            <div class="player">
+                <h2>Player score: 0</h2>
+                <input type="image" src="rock.svg" width="50px" id="rock-btn" value="rock">
+                <input type="image" src="paper.svg" width="50px" id="paper-btn" value="paper">
+                <input type="image" src="scissors.svg" width="50px" id="scissors-btn" value="scissors">
+            </div>
+            <div class="draw-score">
+                <h2>Draw: 0</h2>
+            </div>
+            <div class="computer">
+                <h2>Computer score: 0</h2>
+                <img src="rock.svg" width="50px" height="auto">
+                <img src="paper.svg" width="50px" height="auto">
+                <img src="scissors.svg" width="50px" height="auto">
+            </div>
+        </div>
+        <h3></h3>
+        <div class="score-texts">
+            <div class="finalScore" id="finalResult"></div>
+        </div>
+    </main>
+
 </body>
 </html>

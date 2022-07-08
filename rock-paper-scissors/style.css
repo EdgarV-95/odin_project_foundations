@@ -1,0 +1,54 @@
+body {
+    background-color: rgb(75, 54, 54);
+    display: flex;
+    flex-direction: column;
+    gap: 150px;
+    color: yellow;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 5px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 100px;
+}
+
+.player-vs-computer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 400px;
+}
+
+.draw-score {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.score-texts {
+    font-size: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+button {
+    width: 300px;
+    height: 50px;
+    align-items: center;
+    border-radius: 50px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
