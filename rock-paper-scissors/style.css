@@ -52,3 +52,27 @@ button {
     color: white;
     cursor: pointer;
 }
+
+.rock:active, .rock:focus {
+    width: 100px;
+}
+
+.paper:active, .paper:focus {
+    width: 100px;
+}
+
+.scissors:active, .scissors:focus {
+    width: 100px;
+}
+
+.cpu-rock {
+    width: 100px;
+}
+
+.cpu-paper {
+    width: 100px;
+}
+
+.cpu-scissors {
+    width: 100px;
+}
