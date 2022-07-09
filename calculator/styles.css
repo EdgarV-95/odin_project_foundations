@@ -1,5 +1,11 @@
 body {
-   background-color: rgb(106, 146, 179);
+   /* background-color: rgb(106, 146, 179); */
+   background: url(https://i.ytimg.com/vi/fcXMtsL0d3s/maxresdefault.jpg)     
+   no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
 }
 
 .container {
