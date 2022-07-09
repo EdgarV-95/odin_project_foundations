@@ -1,5 +1,11 @@
 body {
-    background-color: rgb(75, 54, 54);
+/*     background-color: rgb(75, 54, 54); */
+  background: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/3665f440809485.578e36a224e36.png)     
+   no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
     display: flex;
     flex-direction: column;
     gap: 150px;
