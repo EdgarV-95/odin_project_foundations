@@ -47,7 +47,7 @@ function changeColor() {
     if(currentColor === 'rainbow-mode') {
         this.style.backgroundColor = `hsl(${Math.random()*360}, 100%, 50%)`;
     } else if(currentColor === 'eraser') {
-        this.style.backgroundColor = '#FFFFFF';
+        this.style.backgroundColor = '';
     } else {
         this.style.backgroundColor = currentColor;
     }
@@ -70,7 +70,7 @@ boardReset.addEventListener('click', resetBoard);
 function resetBoard() {
     let myNodeList = document.querySelectorAll('td');
     Array.from(myNodeList).forEach(el => {
-            el.style.backgroundColor = '#FFFFFF';
+            el.style.backgroundColor = '';
     })
 };
 

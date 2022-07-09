@@ -10,34 +10,70 @@
 }
 
 body {
-    background-color: rgb(173, 173, 173);
+    background: url(pencil.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .header {
     display: flex;
     justify-content: center;
-    padding-bottom: 80px;
-    font-size: 100px;
+    padding-bottom: 20px;
+    font-size: 130px;
+    font-style:italic;
+    text-decoration: underline;
 }
 
 .main {
     display: flex;
-    justify-content: center;
-    gap: 100px;
-}
-
-.options {
-    display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
     gap: 30px;
 }
 
-button {
-    border-radius: 50px;
-    height: 40px;
+.grid-options {
+    margin-left: 180px;
 }
 
-table {
-    background-color: white;
+.sts-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+}
+
+input[type='color'] {
+    border: none;
+    border-color: black;
+    background-color: rgba(0,0,0,0);
+    width: 60px;
+    height: 60px;
+    transform: scale(1.5);
+}
+
+input[type=color]::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.color-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.reset-options {
+    margin-left: 200px;
+}
+
+button {
+    border-radius: 50px;
+    width: 125px;
+    height: 40px;
 }

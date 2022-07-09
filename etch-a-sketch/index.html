@@ -12,16 +12,22 @@
         <div class="title">Etch a Sketch</div>
     </header>
     <main class="main">
-        <div class="options">
-            <input id="color-selector" type="color" value="#000000" />
-            <button id="rainbow-mode">Rainbow mode</button>
-            <button id="color-mode">Color mode</button>
-            <button id="eraser">Eraser</button>
-            <button id="reset-board">Reset board</button>
-            <button id="reset-color">Reset color</button>
+        <div class="grid-options">
             <button id="grid-size" type="submit">Change grid size</button>
         </div>
-        <table cellspacing="0" id="container"></table>
+        <div class="sts-options">
+            <div class="color-options">
+                <input id="color-selector" type="color" value="#000000" />
+                <button id="rainbow-mode">Rainbow mode</button>
+                <button id="color-mode">Color mode</button>
+                <button id="eraser">Eraser</button>
+            </div>
+            <table cellspacing="0" id="container"></table>
+        </div>
+        <div class="reset-options">
+            <button id="reset-board">Reset board</button>
+            <button id="reset-color">Reset color</button>
+        </div>
     </main>
 </body>
 </html>
