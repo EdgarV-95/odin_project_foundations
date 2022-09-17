@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>Sign-up form</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo-title">
+                <img src="img/logo.svg" width="60px" height="35px">
+                <h1>Edgar's holidays!</h1>
+            </div>
+            <ul>
+                <li class="nav-option">Home</li>
+                <li class="nav-option">Destination</li>
+                <li class="nav-option">Testimonials</li>
+                <li class="nav-option">About Us</li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="form-container">
+            <h1>Sign up to your amazing holiday!</h1>
+            <form action="">
+                <div class="user-name">
+                    <div class="input-container">
+                        <input type="text" name="first-name" id="first-name" minlength="2" maxlength="10" required>
+                        <label for="first-name">First Name</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input type="text" name="last-name" id="last-name" minlength="2" maxlength="10" required>
+                        <label for="last-name">Last Name</label>
+                    </div>
+                </div>
+        
+                <div class="input-container">
+                    <input type="email" name="email-address" id="email-address" required>
+                    <label for="email-address">Email</label>
+                </div>
+
+                <div class="input-container">
+                    <input type="number" name="phone-nr" id="phone-nr" minlength="9" maxlength="10" required>
+                    <label for="phone-nr">Contact Number</label>
+                </div>
+
+                <div class="user-password">
+                    <div class="input-container">
+                        <input type="password" name="password" id="password" value="" required>
+                        <label for="password">Password</label>
+                    </div>
+        
+                    <div class="input-container">
+                        <input type="password" name="password-re" id="password-re" value="" required>
+                        <label for="password-re">Confirm Password</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="sign-up-btn" value="Submit">Sign Up</button>
+            </form>
+        </div>
+
+    </main>
+    <footer>
+        <h1>2022 Copyright. All rights reserved.</h1>
+    </footer>
+</body>
+</html>
